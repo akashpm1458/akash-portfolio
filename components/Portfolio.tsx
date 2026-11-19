@@ -6,6 +6,8 @@ import { About } from "./About";
 import { Skills } from "./Skills";
 import { Projects } from "./Projects";
 import { Experience } from "./Experience";
+import { Contact } from "./Contact";
+import { Footer } from "./Footer";
 
 const SECTIONS = ["about", "skills", "projects", "experience", "contact"];
 
@@ -31,7 +33,9 @@ export function Portfolio() {
         <Skills />
         <Projects />
         <Experience />
+        <Contact />
       </main>
+      <Footer />
     </div>
   );
 }
