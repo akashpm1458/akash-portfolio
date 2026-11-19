@@ -147,7 +147,8 @@
   .hero .hero-footer { justify-content: space-between; gap: 12px; right: 0; bottom: 28px; }
   .hero .hero-year { display: block; font-size: 28px; }
   .hero .hero-focus { text-align: right; max-width: 72%; font-size: 12px; }
-  .hero-focus .terminal-text { white-space: normal; max-width: 100%; }
+  .hero-focus .terminal-text { display: inline; white-space: normal; max-width: 100%; }
+  .hero-focus .terminal-caret { vertical-align: middle; }
   .portrait-sticky-stage { height: 100svh; }
   .portrait-motion-active .hero-footer { visibility: hidden; }
 
