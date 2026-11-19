@@ -5,6 +5,7 @@ import { NavPill } from "./NavPill";
 import { About } from "./About";
 import { Skills } from "./Skills";
 import { Projects } from "./Projects";
+import { Experience } from "./Experience";
 
 const SECTIONS = ["about", "skills", "projects", "experience", "contact"];
 
@@ -29,6 +30,7 @@ export function Portfolio() {
         <About />
         <Skills />
         <Projects />
+        <Experience />
       </main>
     </div>
   );
