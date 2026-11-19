@@ -2,33 +2,73 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { GlyphBackground } from "./GlyphBackground";
 import { hero, heroCode, person } from "@/lib/content";
 import { HERO_RETURN_EVENT } from "@/lib/hashNav";
 
-/** Static text with a caret that blinks only while visible. */
+gsap.registerPlugin(ScrambleTextPlugin);
+
+const SCRAMBLE_CHARS = "0123456789ABCDEF<>/#";
+
+/**
+ * Text that "locks on" like a decoded signal: it scrambles from hex-like characters
+ * when the hero comes into view, on "Back to top", and on mouse hover.
+ * The caret blinks only while visible.
+ */
 function TerminalText({ text }: { text: string }) {
   const ref = useRef<HTMLSpanElement>(null);
+  const liveRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    const live = liveRef.current;
+    if (!el || !live) return;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+    const hover = el.closest<HTMLElement>(".hero-focus") ?? el;
     let inView = false;
+    let tween: gsap.core.Tween | null = null;
+
+    const scramble = (delay = 0) => {
+      if (reduce.matches) return;
+      tween?.kill();
+      tween = gsap.to(live, {
+        duration: 1.3,
+        delay,
+        scrambleText: { text, chars: SCRAMBLE_CHARS, speed: 0.5, revealDelay: 0.25, tweenLength: false },
+        ease: "none",
+      });
+    };
     const update = () => { el.dataset.running = String(inView && !document.hidden && !reduce.matches); };
-    const io = new IntersectionObserver((e) => { inView = e[0].isIntersecting; update(); });
+    const io = new IntersectionObserver((e) => {
+      const was = inView;
+      inView = e[0].isIntersecting;
+      if (inView && !was) scramble(0.45); // replays each time the hero comes back
+      update();
+    });
+    const onReturn = () => scramble(0.45);
+    const onEnter = (e: PointerEvent) => {
+      if (e.pointerType === "mouse" && !tween?.isActive()) scramble();
+    };
     io.observe(el);
+    hover.addEventListener("pointerenter", onEnter);
+    window.addEventListener(HERO_RETURN_EVENT, onReturn);
     reduce.addEventListener("change", update);
     document.addEventListener("visibilitychange", update);
     return () => {
+      tween?.kill();
+      live.textContent = text;
       io.disconnect();
+      hover.removeEventListener("pointerenter", onEnter);
+      window.removeEventListener(HERO_RETURN_EVENT, onReturn);
       reduce.removeEventListener("change", update);
       document.removeEventListener("visibilitychange", update);
     };
-  }, []);
+  }, [text]);
   return (
     <span className="terminal-text" ref={ref}>
       <span aria-hidden="true">{"{{\u00a0"}</span>
-      <span>{text}</span>
+      <span className="sr-only">{text}</span>
+      <span ref={liveRef} className="terminal-live" aria-hidden="true">{text}</span>
       <span className="terminal-caret" aria-hidden="true" />
       <span aria-hidden="true">{"\u00a0}}"}</span>
     </span>

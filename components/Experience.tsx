@@ -2,6 +2,7 @@
 
 import { Fragment, useEffect, useRef, useState } from "react";
 import { journey } from "@/lib/content";
+import { Counted } from "./CountUp";
 
 /** Timeline whose dashed road connects the markers; an ink line draws itself on scroll-in. */
 export function Experience() {
@@ -61,7 +62,7 @@ export function Experience() {
               <span className="journey-stop-marker" aria-hidden="true"><span /></span>
               <div className="journey-stop-content">
                 <p className="journey-date">
-                  {j.pill && <span className="journey-current">{j.pill}</span>}
+                  {j.pill && <span className="journey-current"><Counted text={j.pill} count={"pillCount" in j ? j.pillCount : undefined} /></span>}
                   {j.date}
                 </p>
                 <h3 id={`${j.id}-title`}>

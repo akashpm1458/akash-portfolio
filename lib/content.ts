@@ -1,3 +1,5 @@
+import type { Count } from "@/components/CountUp";
+
 // =============================================================================
 // ALL site text and data lives here. Edit this file to update the website.
 // Leave a URL as "" to hide that link everywhere.
@@ -108,6 +110,9 @@ export const folders: Folder[] = [
   },
 ];
 
+// Numbers that animate when they scroll into view ("from" is where the counter starts)
+const gradeCount: Count = { match: "1.3", from: 5, decimals: 1 }; // German scale, counts down to 1.3
+
 export const caseStudy = {
   id: "sar-thesis",
   preview: { top: "Lehrstuhl für Hochfrequenztechnik", big: ["From raw radar", "to sharp SAR."], bottom: "Project thesis · Grade 1.3" },
@@ -122,7 +127,8 @@ export const caseStudy = {
     ["Stack", "MATLAB · CUDA C++ (MEX)"],
     ["Data", "77 GHz FMCW TDM-MIMO, institute test vehicle"],
     ["Grade", "1.3"],
-  ],
+  ] as [string, string][],
+  factCounts: { Grade: gradeCount } as Record<string, Count>,
   note: "Measurement data belongs to the Lehrstuhl für Hochfrequenztechnik. Figures shown are illustrative.",
   challenge:
     "SAR autofocus needs ground control points: strong, stable radar targets. Picking them by hand on range-angle images is slow and inconsistent, and the motion estimate behind the SAR image has to be accurate for the focus to work.",
@@ -147,6 +153,7 @@ export type Study = {
   description: string;
   stack: string[];
   metric?: string;
+  metricCount?: Count;
   image: string;
   imageWidth: number;
   imageHeight: number;
@@ -176,6 +183,7 @@ export const eskf: Study & {
     "Vehicle state estimation with 9 and 15 state error-state Kalman filters fusing IMU, GNSS and LiDAR in Python.",
   stack: ["Python", "NumPy", "Error-State KF", "IMU", "GNSS", "LiDAR"],
   metric: "0.096 m position RMSE",
+  metricCount: { match: "0.096", from: 1, decimals: 3 }, // counts down, like a filter converging
   image: "/eskf.png", imageWidth: 1600, imageHeight: 1000, imageBg: "#d1d2cf",
   imageAlt: "ESKF localization result plot",
   imageHref: eskfRepo, imageLinkLabel: "View ESKF source",
@@ -237,12 +245,12 @@ export const studies: Study[] = [
 // ---------- Experience ----------
 export const journey = [
   {
-    id: "msc", cls: "journey-now", pill: "Current", date: "10/2022 – Present",
+    id: "msc", cls: "journey-now", pill: "Current", date: "Present",
     title: ["M.Sc. Electromobility"], place: "FAU Erlangen-Nürnberg", sub: "Erlangen",
     description: "Major in AI & Autonomous Driving. Numerical Optimization & MPC, Robotics Frameworks, Pattern Recognition, Deep Learning.",
   },
   {
-    id: "thesis", cls: "journey-thesis", pill: "Grade 1.3", date: "06/2025 – 05/2026",
+    id: "thesis", cls: "journey-thesis", pill: "Grade 1.3", pillCount: gradeCount, date: "06/2025 – 05/2026",
     title: ["Project Thesis"], place: "Lehrstuhl für Hochfrequenztechnik", sub: "FAU Erlangen",
     description: "Automated radar-based GCP selection for SAR autofocus on 77 GHz FMCW data.",
   },
@@ -269,7 +277,7 @@ export const heroCode = `const akash = {
   role: "${person.role}",
   focus: ["Radar signal processing", "Sensor fusion", "State estimation"],
   study: { degree: "M.Sc. Electromobility", major: "AI & Autonomous Driving",
-    university: "FAU Erlangen-Nürnberg", since: "10/2022", status: "Current" },
+    university: "FAU Erlangen-Nürnberg", status: "Current" },
   thesis: { title: "Automated Radar-Based GCP Selection for SAR Autofocus",
     lab: "Lehrstuhl für Hochfrequenztechnik", grade: 1.3,
     chain: ["CA-CFAR", "DBSCAN", "CZT", "PSF correlation", "CUDA backprojection"] },
@@ -323,7 +331,7 @@ export const chatProfile = {
   languages: { English: "C1, full professional proficiency", German: "A2, actively improving" },
   hobbies: ["Chasing 5 km personal bests", "Basketball", "Hiking"],
   education: [
-    "M.Sc. Electromobility (Major: AI & Autonomous Driving), FAU Erlangen-Nürnberg, 10/2022 – present. Modules: Numerical Optimization and Model Predictive Control, Robotics Frameworks, Pattern Recognition, Deep Learning.",
+    "M.Sc. Electromobility (Major: AI & Autonomous Driving), FAU Erlangen-Nürnberg, ongoing. Modules: Numerical Optimization and Model Predictive Control, Robotics Frameworks, Pattern Recognition, Deep Learning.",
     "B.Tech Mechanical Engineering, APJ Abdul Kalam Technological University, India, 04/2015 – 05/2020.",
   ],
   thesis: caseStudy,

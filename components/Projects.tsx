@@ -7,6 +7,7 @@ import {
   Layers, Navigation, Play, Workflow, X,
 } from "lucide-react";
 import { WaveIcon, WaveText } from "./WaveText";
+import { Counted } from "./CountUp";
 import { activeSocials, caseStudy, eskf, folders, studies, type Folder, type Study } from "@/lib/content";
 
 const github = activeSocials.find((s) => s.name === "GitHub")?.url;
@@ -99,7 +100,7 @@ function StudyBody({ s, children }: { s: Study; children?: React.ReactNode }) {
     <>
       <p className="study-description">{s.description}</p>
       <div className="stack-list">{s.stack.map((t) => <span key={t}>{t}</span>)}</div>
-      {s.metric && <p className="study-outcome">{s.metric}</p>}
+      {s.metric && <p className="study-outcome"><Counted text={s.metric} count={s.metricCount} /></p>}
       <StudyLinks s={s} />
       {children}
       <div className="detail-body">{s.details.map((d) => <p key={d}>{d}</p>)}</div>
@@ -193,7 +194,7 @@ function CaseStudyArticle({ active }: { active: boolean }) {
         <p className="project-category">{c.category}</p>
         <p className="case-study-summary">{c.summary}</p>
         <dl className="case-study-facts">
-          {c.facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+          {c.facts.map(([k, v]) => <div key={k}><dt>{k}</dt><dd><Counted text={v} count={c.factCounts[k]} /></dd></div>)}
         </dl>
         <p className="case-study-privacy">{c.note}</p>
       </div>

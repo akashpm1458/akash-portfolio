@@ -127,6 +127,7 @@ h2 { margin: 0 0 48px; font-size: clamp(44px, 5.3vw, 76px); line-height: 1; }
   transition: transform .18s var(--ease);
 }
 .text-link:hover > svg:last-child { transform: translate(2px, -2px); }
+.count-up { font-variant-numeric: tabular-nums; }
 .platform-logo { flex-shrink: 0; width: 18px; height: 18px; display: block; }
 
 /* ---------- wave text (rolling words) ---------- */
