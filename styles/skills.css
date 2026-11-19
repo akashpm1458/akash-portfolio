@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Tech Stack: three staggered specimen columns
+   ========================================================================== */
+
+.skills-section { padding-block: 100px 80px; }
+.skills-heading { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 64px; }
+.skills-heading h2 { margin: 0; }
+.skills-heading > p { margin: 0; font-size: 18px; line-height: 1.5; color: var(--sc-ink-soft); }
+.skills-specimens { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 40px; }
+.skills-specimen { min-width: 0; border-top: 2px solid var(--sc-ink); padding-top: 28px; }
+.skills-specimen:nth-child(2) { margin-top: 64px; }
+.skills-specimen:nth-child(3) { margin-top: 128px; }
+.skills-specimen h3 {
+  margin: 0; max-width: 14ch; font-size: clamp(28px, 2.7vw, 38px); font-weight: 600;
+  line-height: 1.12; letter-spacing: -.035em; text-wrap: balance;
+}
+.skills-specimen-note { margin: 24px 0 28px; max-width: 34ch; font-size: 14px; line-height: 1.6; color: var(--sc-ink-soft); }
+.skills-type-mosaic { display: flex; flex-wrap: wrap; align-content: start; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.skills-type-mosaic li {
+  display: inline-flex; align-items: center; max-width: 100%; min-height: 48px; padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: 3px; background: var(--sc-surface); color: var(--sc-ink);
+  font-size: 18px; font-weight: 500; line-height: 1.3; letter-spacing: -.025em;
+  transition: background-color .2s, color .2s, border-color .2s, transform .25s var(--ease);
+}
+.skills-type-mosaic li:nth-child(4n+1) { background: var(--sc-ink); color: var(--sc-canvas); border-color: var(--sc-ink); }
+@media (hover: hover) {
+  .skills-type-mosaic li:hover { background: var(--sc-ink); color: var(--sc-canvas); border-color: var(--sc-ink); transform: translateY(-3px); }
+}
+@media (max-width: 1100px) {
+  .skills-specimens { gap: 24px; }
+  .skills-specimen h3 { font-size: 30px; }
+  .skills-type-mosaic li { padding: 10px 12px; font-size: 16px; }
+  .skills-specimen:nth-child(2) { margin-top: 48px; }
+  .skills-specimen:nth-child(3) { margin-top: 96px; }
+}
+@media (max-width: 700px) {
+  .skills-section { padding-block: 76px 60px; }
+  .skills-section h2 { margin-bottom: 28px; }
+  .skills-heading { flex-direction: column; align-items: start; gap: 20px; margin-bottom: 40px; }
+  .skills-heading > p { font-size: 17px; }
+  .skills-heading > p br { display: none; }
+  .skills-specimens { grid-template-columns: 1fr; gap: 44px; }
+  .skills-specimen:nth-child(n) { margin-top: 0; padding-top: 24px; }
+  .skills-specimen h3 { max-width: 18ch; font-size: 34px; }
+  .skills-specimen-note { margin-block: 18px 24px; font-size: 15px; }
+  .skills-type-mosaic li { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skills-type-mosaic li { transition: none; transform: none !important; }
+}
