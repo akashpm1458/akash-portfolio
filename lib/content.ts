@@ -13,7 +13,7 @@ export const person = {
   email: "prakasanmanikyam@outlook.com",
   location: "Erlangen, Germany",
   cvUrl: "", // add public/akash-cv.pdf, then set this to "/akash-cv.pdf"
-  siteTagline: "Built in Erlangen.",
+  siteTagline: "Erlangen, Germany",
 };
 
 export type SocialName = "LinkedIn" | "GitHub";
