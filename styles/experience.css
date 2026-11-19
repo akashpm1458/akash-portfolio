@@ -36,6 +36,7 @@
 .journey-place { margin: 0 0 16px; font-size: 18px; font-weight: 500; line-height: 1.5; }
 .journey-place > span { display: block; margin-top: 4px; font-size: 14px; font-weight: 400; color: var(--sc-ink-soft); }
 .journey-description { margin: 0; font-size: 15px; line-height: 1.65; color: var(--sc-ink-soft); }
+.journey-description strong { font-weight: 600; color: var(--sc-ink); }
 
 @keyframes career-road-draw { 0% { stroke-dashoffset: 1px; } to { stroke-dashoffset: 0; } }
 @keyframes career-pin-arrive { 0% { transform: scale(.85); } 70% { transform: scale(1.12); } to { transform: scale(1); } }

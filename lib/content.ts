@@ -243,16 +243,17 @@ export const studies: Study[] = [
 ];
 
 // ---------- Experience ----------
+// Wrap text in **double asterisks** to make it bold.
 export const journey = [
   {
     id: "msc", cls: "journey-now", pill: "Current", date: "Present",
     title: ["M.Sc. Electromobility"], place: "FAU Erlangen-Nürnberg", sub: "Erlangen",
-    description: "Major in AI & Autonomous Driving. Numerical Optimization & MPC, Robotics Frameworks, Pattern Recognition, Deep Learning.",
+    description: "**Major in AI & Autonomous Driving.** Numerical Optimization & MPC, Robotics Frameworks, Pattern Recognition, Deep Learning.",
   },
   {
     id: "thesis", cls: "journey-thesis", pill: "Grade 1.3", pillCount: gradeCount, date: "06/2025 – 05/2026",
     title: ["Project Thesis"], place: "Lehrstuhl für Hochfrequenztechnik", sub: "FAU Erlangen",
-    description: "Automated radar-based GCP selection for SAR autofocus on 77 GHz FMCW data.",
+    description: "**Automated radar-based GCP selection for SAR autofocus on 77 GHz FMCW data.**",
   },
   {
     id: "work", cls: "journey-work", pill: "", date: "10/2020 – 11/2021",

@@ -69,7 +69,9 @@ export function Experience() {
                   {j.title.map((t, i) => <Fragment key={t}>{i > 0 && <br />}{t}</Fragment>)}
                 </h3>
                 <p className="journey-place">{j.place}<span>{j.sub}</span></p>
-                <p className="journey-description">{j.description}</p>
+                <p className="journey-description">
+                  {j.description.split("**").map((part, i) => (i % 2 ? <strong key={i}>{part}</strong> : <Fragment key={i}>{part}</Fragment>))}
+                </p>
               </div>
             </article>
           ))}
