@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Hero, glyph background, portrait journey, biography
+   ========================================================================== */
+
+.about-section { position: relative; }
+
+/* ---------- glyph code background ---------- */
+.glyph-background { position: relative; overflow: hidden; pointer-events: none; color: var(--sc-ink); }
+.glyph-background > canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.glyph-code-fallback {
+  position: absolute; inset: 0; margin: 0; padding: 12px 20px; overflow: hidden; white-space: pre;
+  font-family: inherit; font-size: 12px; line-height: 1.7; opacity: .035;
+}
+.glyph-background[data-renderer="webgl"] .glyph-code-fallback { visibility: hidden; }
+.hero-code-background { position: absolute; top: 0; bottom: 0; left: 50%; transform: translate(-50%); width: 100vw; z-index: 0; }
+
+/* ---------- hero ---------- */
+.hero {
+  --hero-image-width: clamp(150px, 34svh, 320px);
+  --hero-image-height: calc(var(--hero-image-width) * 1.15);
+  --hero-image-bottom: 24px;
+  --hero-image-overlap: 28px;
+  position: relative; height: 100svh; min-height: 0;
+}
+.hero-heading-composition {
+  position: absolute; left: 0; right: 0; z-index: 3;
+  bottom: calc(var(--hero-image-bottom) + var(--hero-image-height) - var(--hero-image-overlap));
+  overflow-x: clip; overflow-clip-margin: 20px;
+}
+.hero-title { margin: 0; text-align: center; }
+/* PERCEPTION is 10 letters (original SOFTWARE is 8), so the type is scaled by 0.8 */
+.hero-display-title {
+  font-family: var(--sc-font-display); font-size: min(10.4vw, 19svh, 147px);
+  font-weight: 900; letter-spacing: -.035em;
+}
+.hero-display-title .title-line { display: flex; justify-content: center; line-height: .9; }
+.hero-word { display: inline-flex; position: relative; }
+.hero-letter-window { display: inline-flex; perspective: 600px; margin-block: -.12em; padding-block: .12em; overflow: clip; }
+.hero-letter {
+  display: inline-block; line-height: .9; color: var(--sc-ink);
+  -webkit-text-stroke: .008em currentColor; paint-order: stroke fill;
+}
+.hero-heading-composition .hero-code-mark {
+  --code-mark-height: clamp(36px, 5.6vw, 84px);
+  position: absolute; top: 50%; transform: translateY(-50%);
+  height: var(--code-mark-height); color: var(--sc-ink); pointer-events: none;
+}
+.hero-heading-composition .hero-code-open { width: calc(var(--code-mark-height) * .6875); right: calc(100% + clamp(8px, 1.2vw, 18px)); }
+.hero-heading-composition .hero-code-close { width: calc(var(--code-mark-height) * 1.125); left: calc(100% + clamp(8px, 1.2vw, 18px)); }
+.hero-code-mark svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero[data-hero-intro="pending"] .hero-letter,
+  .hero[data-hero-intro="pending"] .hero-code-mark svg { opacity: 0; }
+}
+
+.hero-portrait-link {
+  position: absolute; left: 50%; transform: translate(-50%); bottom: var(--hero-image-bottom); z-index: 2;
+  width: var(--hero-image-width); aspect-ratio: 20 / 23; border-radius: 9px; overflow: hidden;
+  background: var(--surface-strong); display: block;
+}
+.hero-portrait-link img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(); }
+
+.hero-footer {
+  position: absolute; left: 0; right: 0; bottom: 28px; z-index: 4;
+  display: flex; justify-content: space-between; align-items: end;
+}
+.hero-year { font-size: clamp(40px, 6.8svh, 68px); font-weight: 600; line-height: 1; letter-spacing: -.02em; }
+.hero-focus { text-align: right; padding-bottom: 5px; line-height: 1.3; font-size: clamp(16px, 1.3vw, 22px); font-weight: 500; }
+
+.terminal-text { display: inline-flex; align-items: center; white-space: nowrap; letter-spacing: -.025em; font-family: inherit; }
+.terminal-caret { display: inline-block; width: 1px; height: 1.15em; margin-left: 2px; background: currentColor; opacity: 1; }
+.terminal-text[data-running="true"] .terminal-caret { animation: terminal-blink 1.06s step-end infinite; }
+@keyframes terminal-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+
+/* ---------- portrait journey ---------- */
+.portrait-journey { position: absolute; inset: 0 0 auto; z-index: 2; pointer-events: none; display: none; }
+.portrait-sticky-stage { position: sticky; top: 0; height: 100vh; }
+.portrait-card { position: absolute; transform-style: preserve-3d; }
+.portrait-face { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; backface-visibility: hidden; }
+.portrait-face-back { transform: rotateY(180deg); }
+.portrait-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.portrait-face-front img { filter: grayscale(); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .portrait-motion-ready .portrait-journey { display: block; visibility: hidden; }
+  .portrait-motion-active .portrait-journey { visibility: visible; }
+  .portrait-motion-active .hero-portrait-link,
+  .portrait-motion-active .bio-portrait { background: none; }
+  .portrait-motion-active .hero-portrait-link img,
+  .portrait-motion-active .bio-portrait img { opacity: 0; }
+}
+
+/* ---------- biography ---------- */
+.biography {
+  display: grid; grid-template-columns: 1fr 1.1fr 1.1fr; align-items: center;
+  gap: clamp(28px, 3.3vw, 48px); padding-block: 520px 80px; letter-spacing: -.025em;
+}
+.bio-introduction { display: flex; flex-direction: column; gap: 32px; }
+.bio-introduction h2 {
+  margin: 0; font-family: inherit; font-size: clamp(64px, 6.6vw, 96px);
+  font-weight: 700; line-height: .98; letter-spacing: -.04em;
+}
+.bio-role { margin: 0; font-size: clamp(24px, 2.2vw, 32px); font-weight: 700; line-height: 1.15; }
+.bio-role > span { display: block; }
+.bio-current { border-top: 1px solid var(--line); padding-top: 24px; }
+.bio-current > span { display: block; margin-bottom: 10px; font-size: 14px; font-weight: 500; letter-spacing: 0; color: var(--sc-ink-soft); }
+.bio-current p { margin: 0; font-size: 18px; font-weight: 500; line-height: 1.5; }
+.bio-current strong { font-weight: 700; }
+.bio-current p > span { color: var(--sc-ink-soft); }
+.bio-description { display: flex; flex-direction: column; gap: 28px; }
+.bio-description .bio-lead { margin: 0; font-size: clamp(24px, 2.1vw, 30px); font-weight: 500; line-height: 1.3; text-wrap: pretty; }
+.bio-lead strong { font-weight: 700; }
+.bio-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.bio-actions a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  min-height: 52px; padding: 14px 16px; border: 1px solid var(--sc-ink); border-radius: 6px;
+  font-size: 16px; font-weight: 600; transition: background-color .18s, color .18s;
+}
+.bio-projects { background: var(--sc-ink); color: var(--sc-canvas); }
+.bio-projects:hover { background: var(--sc-ink-soft); }
+.bio-portrait { margin: 0; aspect-ratio: 20 / 23; border-radius: 16px; overflow: hidden; }
+.bio-portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1100px) {
+  .hero-focus { font-size: 12px; }
+  .hero-footer { right: 72px; }
+  .biography { grid-template-columns: 1fr 1fr; gap: 40px; padding-block: 180px 100px; }
+  .bio-introduction h2 { font-size: 72px; }
+  .bio-description { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 28px 40px; }
+  .bio-description .bio-lead { grid-row: span 2; font-size: 28px; }
+  .bio-actions { grid-column: 1 / -1; }
+}
+@media (min-width: 701px) and (max-width: 1100px) {
+  .hero-display-title { font-size: min(10.2vw, 19svh); }
+}
+@media (max-width: 700px) {
+  .hero {
+    --hero-image-width: clamp(136px, 28svh, 220px);
+    --hero-image-overlap: 18px;
+    --hero-mobile-type: min(9.7vw, 13.6svh, 64px);
+    --hero-heading-height: calc(var(--hero-mobile-type) * 1.8);
+    --hero-image-bottom: calc((100svh - var(--hero-image-height) - var(--hero-heading-height) + var(--hero-image-overlap)) / 2 - 16px);
+  }
+  .hero .hero-display-title { font-size: var(--hero-mobile-type); }
+  .hero .hero-footer { justify-content: space-between; gap: 12px; right: 0; bottom: 28px; }
+  .hero .hero-year { display: block; font-size: 28px; }
+  .hero .hero-focus { text-align: right; max-width: 72%; font-size: 12px; }
+  .hero-focus .terminal-text { white-space: normal; max-width: 100%; }
+  .portrait-sticky-stage { height: 100svh; }
+  .portrait-motion-active .hero-footer { visibility: hidden; }
+
+  .biography { grid-template-columns: 1fr; gap: 40px; padding-block: 100px 80px; }
+  .bio-introduction { gap: 24px; }
+  .bio-introduction h2 { font-size: clamp(56px, 12vw, 76px); }
+  .bio-introduction h2 br { display: none; }
+  .bio-role { font-size: 28px; }
+  .bio-portrait { order: -1; justify-self: center; width: 100%; }
+  .bio-description { grid-column: auto; display: flex; gap: 28px; }
+  .bio-description .bio-lead { font-size: 28px; }
+  .bio-actions { gap: 10px; }
+  .bio-actions a { padding: 14px; }
+}
+@media (max-height: 620px) {
+  .hero { --hero-image-width: clamp(64px, 18svh, 112px); --hero-image-bottom: 20px; --hero-image-overlap: 18px; }
+  .hero-footer { bottom: 20px; }
+  .hero-year { font-size: 36px; }
+}
+@media (max-width: 700px) and (max-height: 620px) {
+  .hero { --hero-image-width: clamp(64px, 15svh, 96px); --hero-mobile-type: min(9.7vw, 9.6svh); }
+  .hero-footer { bottom: 22px; }
+}
+@media (forced-colors: active), print { .hero-letter { -webkit-text-stroke: 0; } }
+@media print {
+  .hero-code-background { display: none; }
+  .hero { height: auto; min-height: 800px; }
+}
