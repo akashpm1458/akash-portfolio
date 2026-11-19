@@ -4,6 +4,7 @@ import "@/styles/base.css";
 import "@/styles/nav.css";
 import "@/styles/hero.css";
 import "@/styles/skills.css";
+import "@/styles/projects.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],

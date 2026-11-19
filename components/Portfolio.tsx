@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { NavPill } from "./NavPill";
 import { About } from "./About";
 import { Skills } from "./Skills";
+import { Projects } from "./Projects";
 
 const SECTIONS = ["about", "skills", "projects", "experience", "contact"];
 
@@ -27,6 +28,7 @@ export function Portfolio() {
       <main id="main">
         <About />
         <Skills />
+        <Projects />
       </main>
     </div>
   );
