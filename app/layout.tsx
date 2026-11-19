@@ -17,7 +17,7 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://akash-portfolio.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://akash-portfolio-green-one.vercel.app";
 const TITLE = "Akash Prakasan Manikyam | Radar Signal Processing & Perception";
 const DESCRIPTION =
   "Akash Prakasan Manikyam, M.Sc. student at FAU Erlangen-Nürnberg working on radar signal processing, sensor fusion and state estimation for autonomous driving.";
