@@ -46,7 +46,7 @@ const secondary = [
 
 type Spin = { from: number; target: number; started: number; speed: number; fastFor: number; coastFor: number };
 
-/** Idle every 3s + on hover/focus: the wordmark does a full spin with a coasting stop. */
+/** On hover/focus the wordmark does a full spin with a coasting stop. */
 function useWordmarkSpin(ref: React.RefObject<HTMLSpanElement | null>) {
   useEffect(() => {
     const el = ref.current;
@@ -56,7 +56,6 @@ function useWordmarkSpin(ref: React.RefObject<HTMLSpanElement | null>) {
     let spin: Spin | null = null;
     let raf = 0;
     let hovering = false;
-    let interval: number | undefined;
 
     const angleAt = (now: number) => {
       if (!spin) return { angle: 0, speed: 0, finished: true };
@@ -97,19 +96,16 @@ function useWordmarkSpin(ref: React.RefObject<HTMLSpanElement | null>) {
       if (s.finished || s.speed <= 0) return stop();
       run({ from: s.angle, target: spin.target, started: now, speed: s.speed, fastFor: 0, coastFor: (2 * (spin.target - s.angle)) / s.speed });
     };
+    // only stop a running spin when motion gets reduced or the tab is hidden (no automatic repeat)
     const schedule = () => {
-      window.clearInterval(interval);
-      if (reduce.matches || document.hidden) { hovering = false; stop(); return; }
-      if (!hovering && document.activeElement !== link) {
-        interval = window.setInterval(() => { if (!spin && !hovering) start(); }, 3000);
-      }
+      if (reduce.matches || document.hidden) { hovering = false; stop(); }
     };
     const onEnter = (e: PointerEvent) => {
       if (e.pointerType === "touch" || hovering) return;
-      hovering = true; window.clearInterval(interval); start();
+      hovering = true; start();
     };
     const onLeave = () => { hovering = false; coast(); schedule(); };
-    const onFocus = () => { window.clearInterval(interval); if (!hovering && link.matches(":focus-visible")) start(); };
+    const onFocus = () => { if (!hovering && link.matches(":focus-visible")) start(); };
     const onBlur = () => { if (!hovering) coast(); schedule(); };
 
     link.addEventListener("pointerenter", onEnter);
@@ -118,9 +114,8 @@ function useWordmarkSpin(ref: React.RefObject<HTMLSpanElement | null>) {
     link.addEventListener("blur", onBlur);
     reduce.addEventListener("change", schedule);
     document.addEventListener("visibilitychange", schedule);
-    schedule();
     return () => {
-      window.clearInterval(interval); stop();
+      stop();
       link.removeEventListener("pointerenter", onEnter);
       link.removeEventListener("pointerleave", onLeave);
       link.removeEventListener("focus", onFocus);
