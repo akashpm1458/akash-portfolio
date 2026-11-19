@@ -12,7 +12,7 @@ const links = [
   { label: "Experience", href: "#experience" },
   { label: "CV", href: person.cvUrl },
   { label: "Contact", href: "#contact" },
-];
+].filter((l) => l.href);
 
 export function Footer() {
   return (

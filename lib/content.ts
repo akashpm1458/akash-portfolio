@@ -10,7 +10,7 @@ export const person = {
   role: "Radar Signal Processing & State Estimation",
   email: "prakasanmanikyam@outlook.com",
   location: "Erlangen, Germany",
-  cvUrl: "/akash-cv.pdf",
+  cvUrl: "", // add public/akash-cv.pdf, then set this to "/akash-cv.pdf"
   siteTagline: "Built in Erlangen.",
 };
 

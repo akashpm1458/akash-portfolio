@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
+import { activeSocials, person } from "@/lib/content";
 import "@/styles/base.css";
 import "@/styles/nav.css";
 import "@/styles/hero.css";
@@ -7,6 +8,7 @@ import "@/styles/skills.css";
 import "@/styles/projects.css";
 import "@/styles/experience.css";
 import "@/styles/contact.css";
+import "@/styles/chat.css";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -47,6 +49,25 @@ export const viewport: Viewport = {
   ],
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: person.name,
+      url: `${SITE_URL}/`,
+      image: `${SITE_URL}/bg.jpg`,
+      jobTitle: "M.Sc. Student, Radar Signal Processing & State Estimation",
+      affiliation: { "@type": "CollegeOrUniversity", name: "Friedrich-Alexander-Universität Erlangen-Nürnberg" },
+      email: `mailto:${person.email}`,
+      knowsAbout: ["Radar signal processing", "FMCW radar", "SAR", "Sensor fusion", "Kalman filtering", "State estimation", "Autonomous driving"],
+      sameAs: activeSocials.map((s) => s.url),
+    },
+    { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: person.name, publisher: { "@id": `${SITE_URL}/#person` } },
+  ],
+};
+
 const themeScript = `(function(){try{document.documentElement.dataset.theme=localStorage.getItem('portfolio-theme')==='dark'?'dark':'light'}catch(e){document.documentElement.dataset.theme='light'}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -54,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={spaceGrotesk.variable} data-theme="light" suppressHydrationWarning>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {children}
       </body>
     </html>

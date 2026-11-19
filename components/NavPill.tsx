@@ -42,7 +42,7 @@ const secondary = [
   { id: "skills", label: "Skills", href: "#skills" },
   { id: "experience", label: "Experience", href: "#experience" },
   { id: "cv", label: "CV", href: person.cvUrl },
-];
+].filter((l) => l.href);
 
 type Spin = { from: number; target: number; started: number; speed: number; fastFor: number; coastFor: number };
 
