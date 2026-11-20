@@ -42,7 +42,7 @@
 /* ---------- footer ---------- */
 .site-footer { overflow: hidden; padding-top: 56px; background: #000; color: #f8f7f4; }
 .footer-top { display: grid; grid-template-columns: .9fr 1.1fr 1fr; align-items: start; gap: 48px; }
-.footer-top h2 { margin: 0; font-size: 32px; line-height: 1; }
+.footer-top h2 { margin: 0; font-size: 32px; line-height: 1.05; }
 .footer-identity > p { margin: 16px 0 0; font-size: 14px; line-height: 1.6; color: #b5b5b5; }
 .footer-top nav > p, .footer-contact > p { margin: 0 0 16px; font-size: 14px; color: #b5b5b5; }
 .footer-top nav > div { display: flex; flex-wrap: wrap; gap: 0 24px; max-width: 310px; }
