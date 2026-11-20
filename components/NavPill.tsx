@@ -239,6 +239,7 @@ export function NavPill({ activeTab }: { activeTab: string }) {
         <div className="header-inner">
           <a className="wordmark" href="#about" aria-label={`${person.name}, home`}>
             <span className="wordmark-text" ref={wordRef}>{person.firstName}</span>
+            <span className="wordmark-last">{person.lastName}</span>
           </a>
           <div className="header-actions">
             <button

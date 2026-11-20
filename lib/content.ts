@@ -8,6 +8,7 @@ import type { Count } from "@/components/CountUp";
 export const person = {
   name: "Akash Prakasan Manikyam",
   firstName: "Akash",
+  lastName: "Prakasan Manikyam",
   initial: "A.",
   role: "Radar Signal Processing & State Estimation",
   email: "prakasanmanikyam@outlook.com",
