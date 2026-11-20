@@ -218,7 +218,7 @@ function CaseStudyArticle({ active }: { active: boolean }) {
           <p>{c.challenge}</p>
         </section>
         <section className="case-study-section" aria-labelledby={`${c.id}-approach`}>
-          <h4 id={`${c.id}-approach`}>My approach</h4>
+          <h4 id={`${c.id}-approach`}>Approach</h4>
           <ol className="case-study-delivery">
             {c.steps.map(([t, p]) => <li key={t}><h5>{t}</h5><p>{p}</p></li>)}
           </ol>
