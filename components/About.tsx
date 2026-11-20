@@ -113,8 +113,8 @@ function PortraitJourney() {
       <div className="portrait-sticky-stage">
         <div ref={cardRef} className="portrait-card">
           {/* eslint-disable @next/next/no-img-element */}
-          <div className="portrait-face portrait-face-front"><img src="/bg.jpg" alt="" /></div>
-          <div className="portrait-face portrait-face-back"><img src="/bg.jpg" alt="" /></div>
+          <div className="portrait-face portrait-face-front"><img src="/portrait.webp" alt="" /></div>
+          <div className="portrait-face portrait-face-back"><img src="/portrait.webp" alt="" /></div>
         </div>
       </div>
     </div>
@@ -139,7 +139,7 @@ function Biography() {
       </div>
       <figure className="bio-portrait">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/bg.jpg" alt={`Portrait of ${person.name}`} loading="lazy" width={1280} height={1280} />
+        <img src="/portrait.webp" alt={`Portrait of ${person.name}`} loading="lazy" width={1000} height={1150} />
       </figure>
       <div className="bio-description">
         <p className="bio-lead">{p1}<strong>{b1}</strong>{p2}<strong>{b2}</strong>{p3}</p>

@@ -211,7 +211,7 @@ export function Hero() {
       <GlyphBackground code={heroCode} className="hero-code-background" />
       <a className="hero-portrait-link" href="#biography" aria-label={`About ${person.name}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/bg.jpg" alt={`${person.name} in black and white`} width={1280} height={1280} />
+        <img src="/portrait.webp" alt={`${person.name} in black and white`} width={1000} height={1150} />
       </a>
       <div className="hero-heading-composition">
         <HeroTitle />
