@@ -118,6 +118,15 @@ export const caseStudy = {
   id: "sar-thesis",
   preview: { top: "Lehrstuhl für Hochfrequenztechnik", big: ["From raw radar", "to sharp SAR."], bottom: "Project thesis · Grade 1.3" },
   toolbar: "Thesis case study",
+  image: {
+    src: "/lhft-test-vehicle.jpg",
+    width: 1536,
+    height: 1024,
+    alt: "LHFT MARK I research vehicle with front-mounted 77 GHz radar sensors",
+    caption: "LHFT MARK I, the institute's test vehicle used for the measurement campaign.",
+    sourceLabel: "LHFT, FAU",
+    sourceUrl: "https://www.lhft.tf.fau.de/eis-radar-labor/",
+  },
   title: "Automated GCP Selection for SAR Autofocus",
   category: "Lehrstuhl für Hochfrequenztechnik, FAU · Project thesis",
   summary:

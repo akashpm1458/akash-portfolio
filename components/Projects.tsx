@@ -189,6 +189,20 @@ function CaseStudyArticle({ active }: { active: boolean }) {
   const c = caseStudy;
   return (
     <article hidden={!active} className="project-study case-study" aria-labelledby={`${c.id}-title`}>
+      <figure className="case-study-figure">
+        <div className="case-study-figure-frame">
+          <Image src={c.image.src} alt={c.image.alt} width={c.image.width} height={c.image.height} sizes="(max-width: 700px) 92vw, 1180px" />
+        </div>
+        <figcaption>
+          <span>{c.image.caption}</span>
+          <span>
+            Source:{" "}
+            <a className="case-study-source" href={c.image.sourceUrl} target="_blank" rel="noopener noreferrer">
+              {c.image.sourceLabel}<ArrowUpRight size={12} aria-hidden="true" />
+            </a>
+          </span>
+        </figcaption>
+      </figure>
       <div className="case-study-overview study-content">
         <h3 id={`${c.id}-title`}>{c.title}</h3>
         <p className="project-category">{c.category}</p>

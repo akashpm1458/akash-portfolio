@@ -145,6 +145,14 @@ a.project-image-link:hover img { transform: scale(1.035); }
 .route-explanation p { margin: 0; font-size: 12px; color: var(--sc-ink-soft); }
 
 /* ---------- case study ---------- */
+.case-study-figure { grid-column: 1 / -1; margin: 0 0 8px; }
+.case-study-figure-frame { aspect-ratio: 21 / 9; border-radius: 16px; overflow: hidden; background: var(--surface-strong); }
+.case-study-figure-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; display: block; }
+.case-study-figure figcaption {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px;
+  margin-top: 12px; font-size: 12px; line-height: 1.5; color: var(--sc-ink-soft);
+}
+.case-study-source { display: inline-flex; align-items: center; gap: 2px; color: var(--sc-ink); text-decoration: underline; text-underline-offset: 3px; }
 .case-study-overview { position: sticky; top: 120px; }
 .case-study-summary { max-width: 34ch; margin: 24px 0 32px; font-size: clamp(18px, 1.7vw, 23px); line-height: 1.5; letter-spacing: -.02em; }
 .case-study-facts { display: grid; gap: 16px; margin: 0; padding-block: 24px; border-block: 1px solid var(--line); }
@@ -190,6 +198,7 @@ a.project-image-link:hover img { transform: scale(1.035); }
   .engine-node { padding: 12px 10px; }
   .engine-node strong, .engine-node span { font-size: 12px; }
   .case-study-overview { position: static; }
+  .case-study-figure-frame { aspect-ratio: 3 / 2; border-radius: 12px; }
   .case-study { gap: 36px; }
   .case-study-summary { font-size: 21px; }
   .case-study-facts > div { grid-template-columns: 84px minmax(0, 1fr); gap: 12px; }
