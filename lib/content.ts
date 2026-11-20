@@ -121,10 +121,10 @@ export const caseStudy = {
   title: "Automated GCP Selection for SAR Autofocus",
   category: "Lehrstuhl für Hochfrequenztechnik, FAU · Project thesis",
   summary:
-    "An automated signal processing chain that picks reliable ground control points from automotive radar images, so SAR autofocus no longer depends on manual selection.",
+    "An automated signal processing chain that selects ground control points directly from the radar range-angle map, before SAR image formation, to support SAR autofocus.",
   facts: [
     ["Role", "Project thesis student"],
-    ["Period", "06/2025 – 05/2026"],
+    ["Period", "12/2025 – 05/2026"],
     ["Stack", "MATLAB · CUDA C++ (MEX)"],
     ["Data", "77 GHz FMCW TDM-MIMO, institute test vehicle"],
     ["Grade", "1.3"],
@@ -132,18 +132,18 @@ export const caseStudy = {
   factCounts: { Grade: gradeCount } as Record<string, Count>,
   note: "Measurement data belongs to the Lehrstuhl für Hochfrequenztechnik. Figures shown are illustrative.",
   challenge:
-    "SAR autofocus needs ground control points: strong, stable radar targets. Picking them by hand on range-angle images is slow and inconsistent, and the motion estimate behind the SAR image has to be accurate for the focus to work.",
+    "Residual velocity errors defocus automotive SAR images, and automotive-grade navigation lacks the accuracy and update rate to correct them chirp to chirp. Autofocus needs stable GCPs, but selecting them from SAR images by brightness depends on the focused image they are meant to produce.",
   steps: [
-    ["Detect candidates", "Ran CA-CFAR detection on 77 GHz range-angle images and grouped detections with DBSCAN clustering."],
-    ["Refine and select", "Sharpened candidate peaks with CZT spectral refinement and kept targets that matched the expected point spread function."],
-    ["Estimate motion from radar alone", "Estimated coarse ego motion from the Doppler-azimuth profile of static targets, then refined velocity using residual phase errors of the selected GCPs."],
-    ["Accelerate and validate", "Implemented GPU-accelerated SAR backprojection as a CUDA C++ MEX kernel and validated the chain with a phase coherency factor on real drives, against camera and odometry references."],
+    ["Detect candidates", "Ran CA-CFAR on the TDM-MIMO range-angle map, then consolidated detections with DBSCAN and a per-range-bin filter."],
+    ["Refine locally", "Applied a local CZT zoom around each candidate to localise its peak without zero-padding the full spectrum."],
+    ["Select point scatterers", "Kept only candidates whose refined response matched an ideal point spread function via NCC."],
+    ["Validate in SAR", "Reconstructed each GCP with backprojection and scored its phase stability with a phase coherency factor."],
   ],
   impact:
-    "GCP selection went from a manual step to a fully automated chain, validated on real measurement sequences from the institute's test vehicle.",
-  before: ["Before · GCP selection", "Manual"],
-  after: ["After · GCP selection", "Automated"],
-  estimate: "Validated with a phase coherency factor against camera and odometry references.",
+    "A deterministic chain that provides autofocus reference points without prior SAR processing, validated on a real measurement campaign on the TF campus.",
+  before: ["Before · GCP selection", "Post-SAR, amplitude\u2011based"],
+  after: ["After · GCP selection", "Pre-SAR, PSF\u2011based"],
+  estimate: "Validated in the SAR domain by phase coherency analysis on real-world measurement data.",
 };
 
 export type Study = {
@@ -252,7 +252,7 @@ export const journey = [
     description: "**Major in AI & Autonomous Driving.** Numerical Optimization & MPC, Robotics Frameworks, Pattern Recognition, Deep Learning.",
   },
   {
-    id: "thesis", cls: "journey-thesis", pill: "Grade 1.3", pillCount: gradeCount, date: "06/2025 – 05/2026",
+    id: "thesis", cls: "journey-thesis", pill: "Grade 1.3", pillCount: gradeCount, date: "12/2025 – 05/2026",
     title: ["Project Thesis"], place: "Lehrstuhl für Hochfrequenztechnik", sub: "FAU Erlangen",
     description: "**Automated radar-based GCP selection for SAR autofocus on 77 GHz FMCW data.**",
   },
